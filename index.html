@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Job Interview Simulation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .question {
+            margin: 20px 0;
+        }
+        .response {
+            margin: 10px 0;
+            padding: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>AI Job Interview Simulation</h1>
+    <div class="question" id="question"></div>
+    <textarea id="userResponse" rows="4" placeholder="Type your response here..."></textarea>
+    <button id="submitResponse">Submit Response</button>
+    <div class="response" id="aiResponse"></div>
+</div>
+
+<footer>
+    © 2024 AI Job Interview Simulation. Designed by Anantha Kumar G.
+</footer>
+
+<script>
+    const questions = [
+        "Tell me about yourself.",
+        "What are your greatest strengths?",
+        "Why do you want to work here?",
+        "Describe a challenge you faced and how you overcame it.",
+        "Where do you see yourself in five years?"
+    ];
+    let currentQuestionIndex = 0;
+
+    // Initialize the first question
+    document.getElementById('question').innerText = questions[currentQuestionIndex];
+
+    // Event listener for the Submit button
+    document.getElementById('submitResponse').addEventListener('click', async () => {
+        const userResponse = document.getElementById('userResponse').value;
+
+        if (userResponse.trim() === "") {
+            alert("Please enter your response before submitting.");
+            return;
+        }
+
+        const aiResponse = await getAIResponse(userResponse);
+        document.getElementById('aiResponse').innerText = aiResponse;
+
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            document.getElementById('question').innerText = questions[currentQuestionIndex];
+            document.getElementById('userResponse').value = '';
+        } else {
+            document.getElementById('question').innerText = "Interview Complete!";
+            document.getElementById('submitResponse').disabled = true;
+            document.getElementById('aiResponse').innerText = "Thank you for your responses! We appreciate your time and effort.";
+        }
+    });
+
+    // Function to simulate button click
+    function simulateButtonClick() {
+        const submitButton = document.getElementById('submitResponse');
+        submitButton.click(); // Programmatically trigger the button click
+    }
+
+    // Mock function to fetch AI response (replace with actual API call)
+    async function getAIResponse(userResponse) {
+        // Simulating a response from the AI for demonstration purposes
+        return `AI Response to: "${userResponse}"`;
+    }
+
+    // Example usage: Simulate a button click 3 seconds after the page loads
+    window.addEventListener('load', () => {
+        setTimeout(simulateButtonClick, 3000); // Simulates a button click after 3 seconds
+    });
+</script>
+
+</body>
+</html>
